@@ -1,0 +1,45 @@
+requests=[]
+i = 1
+saker=[]
+mat=["bröd","fisk","kött","frukt","grönsaker","mjölk","ost","läsk","vatten","jos","juice","ris","potatis"]
+matkostnad=0
+elektronik=["mobil","tv","sladd","hörlurar","lurar","telefonskydd"]
+elektronikkostnad = 0
+hygien=["soap","balsam","deo"]
+hygienkostnad=0
+kategorier=[mat,elektronik,hygien]
+storkostnad =""
+while 1:
+    sak=str(raw_input("Vad har du köpt för en grej: "))
+    sak=sak.lower()
+    if sak in mat or "mat" in sak:
+        saker.append(sak)
+        matkostnad= matkostnad + float(raw_input("och vad kostade det: "))
+    elif sak in elektronik or "dator" in sak or "telefon" in sak or "teknik" in sak or "elektronik" in sak:
+        saker.append(sak)
+        elektronikkostnad= elektronikkostnad + float(raw_input("och vad kostade det: "))
+    elif sak in hygien or "dush" in sak or "tvätt" in sak or "hygien" in sak:
+        saker.append(sak)
+        hygienkostnad= hygienkostnad + float(raw_input("och vad kostade det: "))
+    elif sak == "":
+        kostnader=[hygienkostnad,matkostnad,elektronikkostnad]
+        totalkostnad=sum(kostnader)    
+        print "Nu är det klart!"
+        print "Totalt kostade allt: "+str(totalkostnad)+" kr."
+        print "Antalet saker var "+str(len(saker))+" därför var snittpriset "+str(float(totalkostnad/len(saker)))+" kr"
+        if hygienkostnad > elektronikkostnad and hygienkostnad > matkostnad:
+            storkostnad = "hygien"
+            storpris = hygienkostnad
+        elif hygienkostnad < elektronikkostnad and elektronikkostnad > matkostnad:
+            storkostnad = "elektronik"
+            storpris = elektronikkostnad
+        else:
+            storkostnad = "mat"
+            storpris = matkostnad
+        print "Största utgiften var för "+storkostnad+" (" +str(storpris)+ ")"  
+        break
+    elif "!" in sak:
+        requests.append(sak[:-1])
+    else:
+      print "Tyvärr vet vi inte vad '" +str(sak)+ "' är. Dubbelkolla stavningen och försök igen! Om du tycker att vi borde veta vad det är kan du använda knappen till höger."      
+      print "Om du vill att vi ska lägga till det skriv in det igen fast med ett utropstecken efter, t.ex.: potatis!, vi försöker kolla upp det inom ett dygn och fixar om det behövs :)"
